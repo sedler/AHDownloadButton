@@ -76,15 +76,15 @@ final class ProgressButton: UIControl {
         }
     }
     
-    var progress: CGFloat = 0 {
-        didSet {
-            if progress < 0 {
-                progress = 0
-            } else if progress > 1 {
-                progress = 1
-            }
-            progressCircleView.progress = progress
+    private(set) var progress: CGFloat = 0
+
+    public func setProgress(_ progress: CGFloat, animated: Bool) {
+        if progress < 0 {
+            self.progress = 0
+        } else if progress > 1 {
+            self.progress = 1
         }
+        progressCircleView.setProgress(progress, animated: animated)
     }
     
     var stopButtonCornerRadius: CGFloat = 3 {

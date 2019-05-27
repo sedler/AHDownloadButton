@@ -23,20 +23,6 @@ final class ProgressCircleView: UIView {
     
     var progressAnimationDuration: TimeInterval = 0.3
     
-    var progress: CGFloat = 0 {
-        didSet {
-            if progress == 1 && isAnimating {
-                if let currentAnimatedProgress = circleView.circleLayer.presentation()?.strokeEnd {
-                    circleView.circleLayer.strokeEnd = currentAnimatedProgress
-                    animateProgress(from: currentAnimatedProgress, to: progress)
-                }
-            }
-            
-            guard !isAnimating else { return }
-            animateProgress(from: circleView.circleLayer.strokeEnd, to: progress)
-        }
-    }
-    
     var lineWidth: CGFloat = 1 {
         didSet {
             circleView.lineWidth = lineWidth
@@ -48,6 +34,8 @@ final class ProgressCircleView: UIView {
             circleView.circleLayer.strokeColor = circleColor.cgColor
         }
     }
+
+    private(set) var progress: CGFloat = 0
     
     // MARK: Initializers
 
@@ -75,6 +63,25 @@ final class ProgressCircleView: UIView {
         animation.duration = progressAnimationDuration
         animation.delegate = self
         circleView.circleLayer.add(animation, forKey: "strokeEnd")
+    }
+
+    public func setProgress(_ progress: CGFloat, animated: Bool) {
+        self.progress = progress
+        
+        guard animated else {
+            circleView.circleLayer.strokeEnd = progress
+            return
+        }
+
+        if progress == 1 && isAnimating {
+            if let currentAnimatedProgress = circleView.circleLayer.presentation()?.strokeEnd {
+                circleView.circleLayer.strokeEnd = currentAnimatedProgress
+                animateProgress(from: currentAnimatedProgress, to: progress)
+            }
+        }
+
+        guard !isAnimating else { return }
+        animateProgress(from: circleView.circleLayer.strokeEnd, to: progress)
     }
 }
 

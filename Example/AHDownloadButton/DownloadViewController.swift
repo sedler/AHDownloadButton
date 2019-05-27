@@ -45,7 +45,7 @@ class DownloadViewController: UIViewController {
                 timer.invalidate()
                 return
             }
-            self.downloadButton.progress += CGFloat(timer.timeInterval/15)
+            self.downloadButton.setProgress(self.downloadButton.progress + CGFloat(timer.timeInterval/15), animated: true)
         }
         downloadTimer?.fire()
     }
@@ -58,7 +58,7 @@ extension DownloadViewController: AHDownloadButtonDelegate {
         switch state {
         case .startDownload:
             downloadTimer?.invalidate()
-            downloadButton.progress = 0
+            downloadButton.setProgress(0, animated: false)
             downloadButton.state = .pending
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.downloadButton.state = .downloading
@@ -70,7 +70,7 @@ extension DownloadViewController: AHDownloadButtonDelegate {
             break
         case .downloading, .downloaded:
             downloadTimer?.invalidate()
-            downloadButton.progress = 0
+            downloadButton.setProgress(0, animated: false)
             downloadButton.state = .startDownload
         }
     }

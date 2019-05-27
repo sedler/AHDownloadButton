@@ -145,7 +145,7 @@ extension AHDownloadButton {
         
         if state != .downloading {
             downloadingButton.alpha = 0
-            progress = 0
+            setProgress(0, animated: false)
         }
         
         if state != .downloaded {

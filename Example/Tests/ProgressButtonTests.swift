@@ -29,17 +29,17 @@ class ProgressButtonTests: XCTestCase {
     }
     
     func testSettingProgressLessThanZeroShouldSetProgressToZero() {
-        progressButton.progress = -2
+        progressButton.setProgress(-2, animated: false)
         XCTAssertTrue(progressButton.progress == 0)
     }
     
     func testSettingProgressGreaterThanOneShouldSetProgressToOne() {
-        progressButton.progress = 2
+        progressButton.setProgress(2, animated: false)
         XCTAssertTrue(progressButton.progress == 1)
     }
     
     func testSettingProgressShouldSetProgressCircleViewProgress() {
-        progressButton.progress = 0.5
+        progressButton.setProgress(0.5, animated: false)
         XCTAssertTrue(progressButton.progress == progressButton.progressCircleView.progress)
     }
     
