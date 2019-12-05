@@ -145,6 +145,7 @@ public final class AHDownloadButton: UIView {
     public private(set) var progress: CGFloat = 0
 
     public func setProgress(_ progress: CGFloat, animated: Bool) {
+        self.progress = progress
         downloadingButton.setProgress(progress, animated: animated)
     }
     
