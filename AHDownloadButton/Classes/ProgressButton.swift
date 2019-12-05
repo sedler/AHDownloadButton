@@ -83,6 +83,8 @@ final class ProgressButton: UIControl {
             self.progress = 0
         } else if progress > 1 {
             self.progress = 1
+        } else {
+            self.progress = progress
         }
         progressCircleView.setProgress(progress, animated: animated)
     }
